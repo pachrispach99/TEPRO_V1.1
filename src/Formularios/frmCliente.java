@@ -2,8 +2,12 @@
 package Formularios;
 
 import Clases.Cliente;
+import Clases.clsExportarExcel;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -132,6 +136,8 @@ public class frmCliente extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
+        btnExportarExcel2007 = new javax.swing.JButton();
+        btnExportarExcel2010 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -443,6 +449,20 @@ public class frmCliente extends javax.swing.JFrame {
 
         btnNuevo.setText("Nuevo");
 
+        btnExportarExcel2007.setText("Exportar Excel 2007");
+        btnExportarExcel2007.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarExcel2007ActionPerformed(evt);
+            }
+        });
+
+        btnExportarExcel2010.setText("Exportar Excel 2010");
+        btnExportarExcel2010.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarExcel2010ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -454,15 +474,22 @@ public class frmCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(95, 95, 95))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnExportarExcel2010)
+                            .addComponent(btnExportarExcel2007))))
+                .addGap(117, 117, 117))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -490,7 +517,11 @@ public class frmCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalir)))
+                        .addComponent(btnSalir)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExportarExcel2007)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnExportarExcel2010)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                 .addContainerGap())
@@ -502,30 +533,33 @@ public class frmCliente extends javax.swing.JFrame {
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
      
        enviarFicheroCliente();
-        
-     /*Cliente obj= new Cliente ();
-     obj.setCodigo(txtCodigo.getText());
-     obj.setNombres(txtNombre.getText());
-     obj.setApellidomater(txtAMaterno.getText());
-     obj.setApellidopater(txtAPaterno.getText());
-     obj.setEdad(Integer.parseInt(txtEdad.getText()));
-     obj.setSexo(cboSexo.getSelectedItem().toString());
-     obj.setNacionalidad(txtNacionalidad.getText());
-     obj.setDireccion(txtDireccion.getText());
-     obj.setProfesion(txtProfesion.getText());
-     obj.setTelefono(Integer.parseInt(txtTelefono.getText()));
-     obj.setCelular(Integer.parseInt(txtCelular.getText()));
-     obj.setEstadoC(cboEstadoCivil.getSelectedItem().toString());
-     obj.setEmail(txtEmail.getText());
-     obj.setTrabajoActual(txtTrabajo.getText());
-     obj.setTipoPrestamos(cboTipoPrestamo.getSelectedItem().toString());
-    //  Object[] fila = new Object[];*/
+     
     
      
      
      
      
     }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
+        // TODO add your handling code here:
+        try {
+            clsExportarExcel obj = new clsExportarExcel();
+            obj.exportarExcel(tblCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExportarExcel2007ActionPerformed
+
+    private void btnExportarExcel2010ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2010ActionPerformed
+        // TODO add your handling code here:
+        try {
+            clsExportarExcel obj = new clsExportarExcel();
+            obj.exportarExcel2010(tblCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExportarExcel2010ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -561,6 +595,8 @@ public class frmCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnExportarExcel2007;
+    private javax.swing.JButton btnExportarExcel2010;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
