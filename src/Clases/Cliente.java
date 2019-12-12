@@ -24,6 +24,8 @@ public class Cliente {
     private String Email;
     private String TrabajoActual;
     
+   //akjsdhkajshdsajkdhaskjdhaskjdhas
+    
     private double IngresoMe;// SUELDO cliente
     
     

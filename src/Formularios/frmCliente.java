@@ -520,6 +520,7 @@ public class frmCliente extends javax.swing.JFrame {
      obj.setTrabajoActual(txtTrabajo.getText());
      obj.setTipoPrestamos(cboTipoPrestamo.getSelectedItem().toString());
     //  Object[] fila = new Object[];*/
+    
      
      
      
