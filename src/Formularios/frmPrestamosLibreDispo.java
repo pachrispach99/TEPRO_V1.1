@@ -5,6 +5,9 @@
  */
 package Formularios;
 
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ordenador
@@ -97,15 +100,39 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
 
         jLabel2.setText("N° de Cuotas");
 
+        txtNcuotasP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNcuotasPKeyTyped(evt);
+            }
+        });
+
         jLabel6.setText("Codigo Empleado");
 
+        txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmpleadoKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText(">1.200");
+
+        txtsueldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtsueldoKeyTyped(evt);
+            }
+        });
 
         jLabel4.setText("Sueldo del Cliente:");
 
         btnBuscar.setText("Buscar");
 
         jLabel5.setText("Prestamos a Solicitar");
+
+        txtNcuotasP1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNcuotasP1KeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Meses(6 a 60)");
 
@@ -260,10 +287,77 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
-        char C= evt.getKeyChar();
-        if(C< '0' || C>'9')evt.consume();
+        if(txtEmpleado.getText().length()>= 6){
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            Toolkit.getDefaultToolkit().beep();
+        }
+        char c = evt.getKeyChar();
+        if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
        
     }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyTyped
+        if(txtEmpleado.getText().length()>= 6){
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            Toolkit.getDefaultToolkit().beep();
+        }
+        char c = evt.getKeyChar();
+        if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtEmpleadoKeyTyped
+
+    private void txtNcuotasPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNcuotasPKeyTyped
+        if(txtEmpleado.getText().length()>= 2){
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            Toolkit.getDefaultToolkit().beep();
+        }
+        char c = evt.getKeyChar();
+        if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+        
+        
+    }//GEN-LAST:event_txtNcuotasPKeyTyped
+
+    private void txtsueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsueldoKeyTyped
+        if(txtEmpleado.getText().length()>= 4){
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            Toolkit.getDefaultToolkit().beep();
+        }
+        char c = evt.getKeyChar();
+        if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtsueldoKeyTyped
+
+    private void txtNcuotasP1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNcuotasP1KeyTyped
+        if(txtEmpleado.getText().length()>= 5){
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            Toolkit.getDefaultToolkit().beep();
+        }
+        char c = evt.getKeyChar();
+        if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNcuotasP1KeyTyped
 
     /**
      * @param args the command line arguments
