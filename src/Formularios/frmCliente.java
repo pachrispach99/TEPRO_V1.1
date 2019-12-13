@@ -19,7 +19,7 @@ public class frmCliente extends javax.swing.JFrame {
             PrintWriter pw;
             
             //crear el archivo
-            fw = new FileWriter("C:\\ProyectoTEPROO2\\Ficheros\\Empleado.txt", true);
+            fw = new FileWriter("C:\\TEPRO_V1.1\\Ficheros\\RegistroCliente.txt", true);
             //escribir el archivo
             pw = new PrintWriter(fw);
             //enviar datos al archivo

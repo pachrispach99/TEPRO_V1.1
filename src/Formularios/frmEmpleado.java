@@ -7,6 +7,7 @@ package Formularios;
 
 import Clases.Empleado;
 import Clases.clsExportarExcel;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -125,7 +126,7 @@ public class frmEmpleado extends javax.swing.JFrame {
             PrintWriter pw;
         
             //crear el archivo
-            fw= new FileWriter("C:\\ProyectoTEPROO2\\Ficheros\\Empleado.txt", true);
+            fw= new FileWriter("C:\\TEPRO_V1.1\\Ficheros\\Empleado.txt", true);
             //escribir el archivo
             pw=new PrintWriter(fw);
             //enviar datos al archivo
@@ -161,7 +162,7 @@ public class frmEmpleado extends javax.swing.JFrame {
       
       private void llenarTabla(){
         try{
-            File archivo = new File("C:\\ProyectoTEPROO2\\Ficheros\\Empleado.txt");
+            File archivo = new File("C:\\TEPRO_V1.1\\Ficheros\\Empleado.txt");
             if (archivo.exists()){
                 FileReader fr = new FileReader(archivo);
                 BufferedReader br = new BufferedReader(fr);
@@ -312,6 +313,36 @@ public class frmEmpleado extends javax.swing.JFrame {
         jLabel5.setText("Sexo:");
 
         jLabel6.setText("Sueldo:");
+
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+
+        txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDniKeyTyped(evt);
+            }
+        });
+
+        txtSueldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSueldoKeyTyped(evt);
+            }
+        });
 
         rdFemenino.setText("Femenino");
 
@@ -508,6 +539,7 @@ public class frmEmpleado extends javax.swing.JFrame {
         Enviarfichero();
         modelo.setRowCount(0);
         llenarTabla();
+        Limpiar();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -537,9 +569,8 @@ public class frmEmpleado extends javax.swing.JFrame {
 
     private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
       
-      try {
-          
-          clsExportarExcel obj = new clsExportarExcel();
+       try {
+            clsExportarExcel obj = new clsExportarExcel();
             obj.exportarExcel2010(tbEmpleado);
         } catch (IOException ex) {
             Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -547,6 +578,76 @@ public class frmEmpleado extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnExcelActionPerformed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        
+        //VALIDACION 
+        char validar =evt.getKeyChar();
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane,"Ingresar solo numeros");
+        }
+        if(txtCodigo.getText().length()>=8){
+          evt.consume();
+          Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+       char validar =evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(rootPane,"Ingresar solo Letras");
+        }
+        if(txtNombre.getText().length()>=15){
+          evt.consume();
+          Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+        char validar =evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(rootPane,"Ingresar solo Letras");
+        }
+        if(txtApellido.getText().length()>=15){
+          evt.consume();
+          Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
+        char validar =evt.getKeyChar();
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane,"Ingresar solo numeros");
+        }
+        if(txtDni.getText().length()>=8){
+          evt.consume();
+          Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtDniKeyTyped
+
+    private void txtSueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyTyped
+        char validar =evt.getKeyChar();
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane,"Ingresar solo numeros");
+        }
+        if(txtSueldo.getText().length()>=8){
+          evt.consume();
+          Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtSueldoKeyTyped
 
     /**
      * @param args the command line arguments
