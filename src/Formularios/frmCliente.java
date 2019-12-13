@@ -19,7 +19,7 @@ public class frmCliente extends javax.swing.JFrame {
             PrintWriter pw;
             
             //crear el archivo
-            fw = new FileWriter("G:\\ProyectoTEPROO2\\Archivos\\Registrar Empleado.txt", true);
+            fw = new FileWriter("C:\\ProyectoTEPROO2\\Ficheros\\Empleado.txt", true);
             //escribir el archivo
             pw = new PrintWriter(fw);
             //enviar datos al archivo
@@ -643,6 +643,7 @@ public class frmCliente extends javax.swing.JFrame {
     private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
         // TODO add your handling code here:
         try {
+            
             clsExportarExcel obj = new clsExportarExcel();
             obj.exportarExcel(tblCliente);
         } catch (IOException ex) {

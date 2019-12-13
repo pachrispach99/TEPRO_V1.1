@@ -125,7 +125,7 @@ public class frmEmpleado extends javax.swing.JFrame {
             PrintWriter pw;
         
             //crear el archivo
-            fw= new FileWriter("C:\\ProyectoTEPROO2\\Fichero\\Empleado.txt", true);
+            fw= new FileWriter("C:\\ProyectoTEPROO2\\Ficheros\\Empleado.txt", true);
             //escribir el archivo
             pw=new PrintWriter(fw);
             //enviar datos al archivo
@@ -161,7 +161,7 @@ public class frmEmpleado extends javax.swing.JFrame {
       
       private void llenarTabla(){
         try{
-            File archivo = new File("C:\\ProyectoTEPROO2\\Fichero\\Empleado.txt");
+            File archivo = new File("C:\\ProyectoTEPROO2\\Ficheros\\Empleado.txt");
             if (archivo.exists()){
                 FileReader fr = new FileReader(archivo);
                 BufferedReader br = new BufferedReader(fr);
