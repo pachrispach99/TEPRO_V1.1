@@ -51,12 +51,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" pref="101" max="32767" attributes="0"/>
+                                  <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtTarjeta" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
-                                  <Component id="txtNcuotasP1" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <Component id="txtSueldoCliente" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -109,7 +109,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="txtNcuotasP1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSueldoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -156,6 +156,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigo">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -163,6 +166,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNcuotasP">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNcuotasPKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -175,6 +181,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTarjeta">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTarjetaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -182,6 +191,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtMontoSoli">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMontoSoliKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGrabar">
       <Properties>
@@ -228,8 +240,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmpleado">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEmpleadoKeyTyped"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNcuotasP1">
+    <Component class="javax.swing.JTextField" name="txtSueldoCliente">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSueldoClienteKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnBuscar">
       <Properties>

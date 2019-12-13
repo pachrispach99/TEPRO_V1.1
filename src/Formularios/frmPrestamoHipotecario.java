@@ -5,6 +5,9 @@
  */
 package Formularios;
 
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ordenador
@@ -16,6 +19,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
      */
     public frmPrestamoHipotecario() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -28,17 +32,17 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        txtempleado = new javax.swing.JTextField();
+        txtCEmpleado = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtCCliente = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
         btnGrabar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        txtntarjeta = new javax.swing.JTextField();
+        txtNTarjeta = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -58,13 +62,19 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtCEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCEmpleadoKeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("Codigo Cliente:");
 
         jLabel2.setText("Codigo Empleado:");
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                txtCClienteKeyTyped(evt);
             }
         });
 
@@ -80,11 +90,29 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
 
         btnCancelar.setText("Cancelar");
 
+        txtNTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNTarjetaKeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("Número de Tarjeta:");
 
         jLabel3.setText("Direcciòn del inmueble:");
 
         jLabel4.setText("Estasdo del bien");
+
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
+            }
+        });
+
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Valor del bien");
 
@@ -96,7 +124,19 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
 
         jLabel7.setText("Cantidad de años a devolver:");
 
+        txtPrestamo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrestamoKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("Prestamo a Solicitar");
+
+        txtCantidadaños.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadañosKeyTyped(evt);
+            }
+        });
 
         jLabel9.setText("Tipo de hipoteca:");
 
@@ -151,9 +191,9 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtempleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(txtntarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtCEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtCCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtNTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
@@ -226,15 +266,15 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1))
+                            .addComponent(txtCCliente))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtempleado))
+                            .addComponent(txtCEmpleado))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtntarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,9 +291,99 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1KeyTyped
+    private void txtCClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCClienteKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtCCliente.getText().length()>= 6 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtCClienteKeyTyped
+
+    private void txtCEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtCCliente.getText().length()>= 6 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtCEmpleadoKeyTyped
+
+    private void txtNTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNTarjetaKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtCCliente.getText().length()>= 13 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNTarjetaKeyTyped
+
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtCCliente.getText().length()>= 35 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+        
+    }//GEN-LAST:event_txtDireccionKeyTyped
+
+    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtCCliente.getText().length()>= 7 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtValorKeyTyped
+
+    private void txtPrestamoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrestamoKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtCCliente.getText().length()>= 6 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtPrestamoKeyTyped
+
+    private void txtCantidadañosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadañosKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtCCliente.getText().length()>= 2 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtCantidadañosKeyTyped
 
     /**
      * @param args the command line arguments
@@ -311,13 +441,13 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblPrestamoHipotecario;
+    private javax.swing.JTextField txtCCliente;
+    private javax.swing.JTextField txtCEmpleado;
     private javax.swing.JTextField txtCantidadaños;
     private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtNTarjeta;
     private javax.swing.JTextField txtPrestamo;
     private javax.swing.JTextField txtValor;
-    private javax.swing.JTextField txtempleado;
-    private javax.swing.JTextField txtntarjeta;
     // End of variables declaration//GEN-END:variables
 }

@@ -64,11 +64,11 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtempleado" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jTextField1" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
+                                          <Component id="txtCEmpleado" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
+                                          <Component id="txtCCliente" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="txtntarjeta" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Component id="txtNTarjeta" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
                                   <Component id="txtDireccion" min="-2" pref="262" max="-2" attributes="0"/>
                                   <Component id="cboTipo" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
                               </Group>
@@ -167,17 +167,17 @@
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" max="32767" attributes="0"/>
+                          <Component id="txtCCliente" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="txtempleado" alignment="3" max="32767" attributes="0"/>
+                          <Component id="txtCEmpleado" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jLabel5" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="txtntarjeta" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNTarjeta" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -199,7 +199,10 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="txtempleado">
+    <Component class="javax.swing.JTextField" name="txtCEmpleado">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCEmpleadoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -211,9 +214,9 @@
         <Property name="text" type="java.lang.String" value="Codigo Empleado:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="txtCCliente">
       <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField1KeyTyped"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCClienteKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnNuevo">
@@ -246,7 +249,10 @@
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtntarjeta">
+    <Component class="javax.swing.JTextField" name="txtNTarjeta">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNTarjetaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -264,8 +270,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDireccion">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDireccionKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtValor">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -294,6 +306,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrestamo">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPrestamoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -301,6 +316,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCantidada&#xf1;os">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCantidada&#xf1;osKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>

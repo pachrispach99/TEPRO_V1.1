@@ -7,6 +7,8 @@ package Formularios;
 
 import Clases.Cliente;
 import Clases.PrestamoPersonal;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -58,7 +60,7 @@ public class frmPrestamoPersonal extends javax.swing.JFrame {
         TblPrestamoP = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         txtEmpleado = new javax.swing.JTextField();
-        txtNcuotasP1 = new javax.swing.JTextField();
+        txtSueldoCliente = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
@@ -67,13 +69,37 @@ public class frmPrestamoPersonal extends javax.swing.JFrame {
 
         jLabel1.setText("Codigo Cliente");
 
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("N° de Cuotas");
+
+        txtNcuotasP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNcuotasPKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Sueldo del cliente ");
 
         jLabel4.setText("N° de Tarjeta");
 
+        txtTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTarjetaKeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("Monto a Solicitar");
+
+        txtMontoSoli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoSoliKeyTyped(evt);
+            }
+        });
 
         btnGrabar.setText("Grabar");
         btnGrabar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +126,18 @@ public class frmPrestamoPersonal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(TblPrestamoP);
 
         jLabel6.setText("Codigo Empleado");
+
+        txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmpleadoKeyTyped(evt);
+            }
+        });
+
+        txtSueldoCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSueldoClienteKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,11 +178,11 @@ public class frmPrestamoPersonal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtTarjeta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNcuotasP1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtSueldoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBuscar)
@@ -182,7 +220,7 @@ public class frmPrestamoPersonal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNcuotasP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSueldoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -246,6 +284,90 @@ public class frmPrestamoPersonal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtCodigo.getText().length()>= 6 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtEmpleado.getText().length()>= 6 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtEmpleadoKeyTyped
+
+    private void txtNcuotasPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNcuotasPKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtNcuotasP.getText().length()>= 2 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNcuotasPKeyTyped
+
+    private void txtSueldoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoClienteKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtSueldoCliente.getText().length()>= 5 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtSueldoClienteKeyTyped
+
+    private void txtTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTarjetaKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtTarjeta.getText().length()>= 13 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtTarjetaKeyTyped
+
+    private void txtMontoSoliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoSoliKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(txtNcuotasP.getText().length()>= 6 ){
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            evt.consume();
+           }
+         if(c<'0' || c>'9'){
+            JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtMontoSoliKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -300,7 +422,7 @@ public class frmPrestamoPersonal extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmpleado;
     private javax.swing.JTextField txtMontoSoli;
     private javax.swing.JTextField txtNcuotasP;
-    private javax.swing.JTextField txtNcuotasP1;
+    private javax.swing.JTextField txtSueldoCliente;
     private javax.swing.JTextField txtTarjeta;
     // End of variables declaration//GEN-END:variables
 }
