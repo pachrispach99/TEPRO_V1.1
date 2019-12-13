@@ -5,9 +5,19 @@
  */
 package Formularios;
 import Clases.Cliente;
+import Clases.Empleado;
 import Clases.PrestamoAdelantoSueldo;
 
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -18,6 +28,45 @@ import javax.swing.table.DefaultTableModel;
 public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     
+    private void HabilitarBotones(){
+        btnNuevo.setEnabled(false);
+        btnGrabar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        btnActualizar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        
+        
+    }
+    
+    private void DesHabilitarBotones(){
+        btnNuevo.setEnabled(true);
+        btnGrabar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnEliminar.setEnabled(true);
+        
+    }
+    
+    private void HabilitarTextos(){
+        txtCCliente.setEnabled(true);
+        txtCEmpleado.setEnabled(true);
+       txtNCuotas.setEnabled(true);
+        txtNTarjeta.setEnabled(true);
+        txtSCliente.setEnabled(true);
+      txtMSoli.setEnabled(true);
+       
+    }
+    
+    private void DesHabilitarTextos(){
+         txtCCliente.setEnabled(false);
+        txtCEmpleado.setEnabled(false);
+       txtNCuotas.setEnabled(false);
+        txtNTarjeta.setEnabled(false);
+        txtSCliente.setEnabled(false);
+      txtMSoli.setEnabled(false);
+       
+    }
+    
     private void ColumnasTabla(){
         modelo.addColumn("Codigo Cliente");
         modelo.addColumn("Codigo Empleado");
@@ -27,11 +76,128 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
         modelo.addColumn("Monto a Solicitar");
         tblPrestamoAdelantoS.setModel(modelo);                        
     } 
+    private void Limpiar(){
+        
+        txtCCliente.setText(null);
+        txtCEmpleado.setText(null);
+       txtNCuotas.setText(null);
+        txtNTarjeta.setText(null);
+        txtSCliente.setText(null);
+      txtMSoli.setText(null);
+        
+        txtCCliente.requestFocus();
+    }
+    private void Eliminar(){
+        int fila=tblPrestamoAdelantoS.getSelectedRow();
+        modelo.removeRow(fila);
+    }
+    private void Limpiartabla(){
+        int filas=modelo.getRowCount();
+        for(int i=0;i<filas;i++)
+        {
+            modelo.removeRow(0);
+        }
+    }
+    
+    
+    
+    private void llenarTabla(){
+        try{
+            File archivo = new File("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PASueldo.txt");
+            if (archivo.exists()){
+                FileReader fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;
+                
+                while((linea=br.readLine())!=null){
+                    StringTokenizer st = new StringTokenizer(linea, ";");
+                    String cod = st.nextToken().trim();
+                    String nom = st.nextToken().trim();
+                    String ape = st.nextToken().trim();
+                    String dni = st.nextToken().trim();
+                    String sex=st.nextToken().trim();
+                     String sue=st.nextToken().trim();
+                    
+                    Object[] obj = new Object[]{
+                      cod, nom, ape, dni,sex ,sue
+                    };
+                    modelo.addRow(obj);
+                    
+                 }
+                 //liberar recursos
+                 br.close();
+                                               
+            }else{
+                JOptionPane.showMessageDialog(null, 
+                        "Ruta no valida del archivo");
+            }
+                                              
+        }catch(IOException ex){
+            JOptionPane.showMessageDialog(null, 
+                    "Error Leer Fichero: " + ex.getMessage());
+        }
+        
+    } 
+    
 
+    
+    
+    
+     private void Enviarfichero()
+    {
+        /*atrapar posibles errores*/
+        try{
+            FileWriter fw;
+            PrintWriter pw;
+        
+            //crear el archivo
+            fw= new FileWriter("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PASueldo.txt", true);
+            //escribir el archivo
+            pw=new PrintWriter(fw);
+            //enviar datos al archivo
+            PrestamoAdelantoSueldo obj = new PrestamoAdelantoSueldo();
+            obj.setCodigoCliente(txtCCliente.getText());
+            obj.setCodigoEmpleado(txtCEmpleado.getText());
+            obj.setMSolicitarA(Integer.parseInt(txtMSoli.getText()));
+            obj.setNroCuotas(Integer.parseInt(txtNCuotas.getText()));
+            
+            obj.setNumerotarjeta(Integer.parseInt(txtNTarjeta.getText()));
+            obj.setSueldocliente(Integer.parseInt(txtSCliente.getText()));
+
+            
+            pw.println(
+                  obj.getCodigoCliente() + ";"
+                    +obj.getCodigoEmpleado()+ ";" 
+             + obj.getMSolicitarA()+ ";" 
+             + obj.getNroCuotas()+ ";"
+            + obj.getNumerotarjeta()+ ";"
+            + obj.getSueldocliente()+ ";"
+          
+                    
+            
+            );
+            
+            //liberar buffer
+            pw.close();
+            //enviar mensaje de exito
+            JOptionPane.showMessageDialog(null, "Empleado Registrado");
+            
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error Fichero: \n" + ex.getMessage());
+        }
+    }
+    
+    
     
     public frmPrestamoAdelantoSuel() {
         initComponents();
+        
         setLocationRelativeTo(null);
+         DesHabilitarTextos();
+        DesHabilitarBotones();
+       ColumnasTabla();  
+       
     }
 
     
@@ -53,9 +219,7 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
         txtMSoli = new javax.swing.JTextField();
         btnGrabar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -63,6 +227,7 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         btnExportarExcel2007 = new javax.swing.JButton();
         btnExportarExcel2010 = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,15 +288,26 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
 
         btnActualizar.setText("Actualizar");
 
-        btnBuscar.setText("Buscar");
-
         btnEliminar.setText("Eliminar");
-
-        jLabel7.setText("<2500 o el 30% del sueldo");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         tblPrestamoAdelantoS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -147,6 +323,11 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblPrestamoAdelantoS);
 
         btnListar.setText("Listar");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         btnExportarExcel2007.setText("Exportar Excel 2007");
         btnExportarExcel2007.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +343,13 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
             }
         });
 
+        btnLimpiar.setText("Limpiar Registro");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,7 +359,7 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtNTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -191,38 +379,33 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
                                 .addComponent(txtNCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtMSoli)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(178, 178, 178)
-                                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtMSoli, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExportarExcel2010)
-                    .addComponent(btnExportarExcel2007))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnExportarExcel2010)
+                            .addComponent(btnExportarExcel2007)))
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -249,28 +432,29 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNCuotas))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtSCliente)
-                                    .addComponent(btnBuscar)
-                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtSCliente))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtNTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtNTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMSoli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7)))
+                                    .addComponent(txtMSoli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLimpiar)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
@@ -372,8 +556,12 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMSoliKeyTyped
 
     private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
-        clsExportarExcel obj = new clsExportarExcel();
-        obj.exportarExcel(tblPrestamoAdelantoS);
+        try {
+            Clases.clsExportarExcel obj = new Clases.clsExportarExcel();
+            obj.exportarExcel2010(tblPrestamoAdelantoS);
+        } catch (IOException ex) {
+            Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnExportarExcel2007ActionPerformed
 
     private void btnExportarExcel2010ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2010ActionPerformed
@@ -382,7 +570,58 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         
+        DesHabilitarTextos();
+        DesHabilitarBotones();
+        
+         Empleado obj = new Empleado();
+                
+
+        obj.setCodigo(txtCCliente.getText());
+        obj.setApellido(txtCEmpleado.getText());
+//        obj.setApellido(txtApellido.getText());
+//        obj.setDni(Integer.parseInt(txtDni.getText()));
+//        obj.setSexo1(rdFemenino.isSelected());
+//        obj.setSexo2(rdMasculino.isSelected());
+//        obj.setSueldo(Double.parseDouble(txtSueldo.getText()));
+
+        //agregar fila a la tabla
+        Object[] fila = new Object[6];
+        fila[0] = obj.getCodigo();
+        fila[1] = obj.getNombre();
+        fila[2] = obj.getApellido();
+        fila[3] = obj.getDni();
+        fila[4] = obj.Sexo();
+        fila[5] = obj.getSueldo();
+        modelo.addRow(fila);
+
+        Enviarfichero();
+        modelo.setRowCount(0);
+        llenarTabla();
+        Limpiar();
     }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        Limpiar();
+        HabilitarTextos();
+        HabilitarBotones();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        DesHabilitarTextos();
+        DesHabilitarBotones();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiartabla();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        llenarTabla();
+    }//GEN-LAST:event_btnListarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,12 +660,12 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnExportarExcel2007;
     private javax.swing.JButton btnExportarExcel2010;
     private javax.swing.JButton btnGrabar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
@@ -435,7 +674,6 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPrestamoAdelantoS;
     private javax.swing.JTextField txtCCliente;

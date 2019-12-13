@@ -5,8 +5,19 @@
  */
 package Formularios;
 
+import Clases.Cliente;
+import Clases.Empleado;
+import Clases.PrestamoAdelantoSueldo;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,12 +25,192 @@ import javax.swing.JOptionPane;
  */
 public class frmPrestamoHipotecario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmPrestamoHipotecario
-     */
+    DefaultTableModel modelo = new DefaultTableModel();
+    
+    private void HabilitarBotones(){
+        btnNuevo.setEnabled(false);
+        btnGrabar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        
+        btnEliminar.setEnabled(false);
+        
+        
+    }
+    
+    private void DesHabilitarBotones(){
+        btnNuevo.setEnabled(true);
+        btnGrabar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+      
+        btnEliminar.setEnabled(true);
+        
+    }
+    
+    private void HabilitarTextos(){
+        txtCCliente.setEnabled(true);
+        txtCEmpleado.setEnabled(true);
+        txtNTarjeta.setEnabled(true);
+        txtDireccion.setEnabled(true);
+        txtValor.setEnabled(true);
+      txtPrestamo.setEnabled(true);
+      txtCantidadaños.setEnabled(true);
+       
+    }
+    
+    private void DesHabilitarTextos(){
+         txtCCliente.setEnabled(false);
+        txtCEmpleado.setEnabled(false);
+        txtNTarjeta.setEnabled(false);
+        txtDireccion.setEnabled(false);
+        txtValor.setEnabled(false);
+      txtPrestamo.setEnabled(false);
+      txtCantidadaños.setEnabled(false);
+       
+    }
+    
+    private void ColumnasTabla(){
+        modelo.addColumn("Codigo Cliente");
+        modelo.addColumn("Codigo Empleado");
+        modelo.addColumn("N° Tarjeta");
+        modelo.addColumn("Direccion");
+        modelo.addColumn("Tipo de Hipoteca");
+        modelo.addColumn("Valor del Bien");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Prestamo a Solicitar");
+        modelo.addColumn("Tiempo De Devolucion");
+        tblPrestamoHipotecario.setModel(modelo);                        
+    } 
+    private void Limpiar(){
+        
+       txtCCliente.setText(null);
+        txtCEmpleado.setText(null);
+        txtNTarjeta.setText(null);
+        txtDireccion.setText(null);
+        txtValor.setText(null);
+      txtPrestamo.setText(null);
+      txtCantidadaños.setText(null);
+        
+        txtCCliente.requestFocus();
+    }
+    private void Eliminar(){
+        int fila=tblPrestamoHipotecario.getSelectedRow();
+        modelo.removeRow(fila);
+    }
+    private void Limpiartabla(){
+        int filas=modelo.getRowCount();
+        for(int i=0;i<filas;i++)
+        {
+            modelo.removeRow(0);
+        }
+    }
+    
+    private void llenarTabla(){
+        try{
+            File archivo = new File("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PHipotecario.txt");
+            if (archivo.exists()){
+                FileReader fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;
+                
+                while((linea=br.readLine())!=null){
+                    StringTokenizer st = new StringTokenizer(linea, ";");
+                    String cod = st.nextToken().trim();
+                    String nom = st.nextToken().trim();
+                    String ape = st.nextToken().trim();
+                    String dni = st.nextToken().trim();
+                    String sex=st.nextToken().trim();
+                     String sue=st.nextToken().trim();
+                    
+                    Object[] obj = new Object[]{
+                      cod, nom, ape, dni,sex ,sue
+                    };
+                    modelo.addRow(obj);
+                    
+                 }
+                 //liberar recursos
+                 br.close();
+                                               
+            }else{
+                JOptionPane.showMessageDialog(null, 
+                        "Ruta no valida del archivo");
+            }
+                                              
+        }catch(IOException ex){
+            JOptionPane.showMessageDialog(null, 
+                    "Error Leer Fichero: " + ex.getMessage());
+        }
+        
+    } 
+    
+
+    
+     private void Enviarfichero()
+    {
+        /*atrapar posibles errores*/
+        try{
+            FileWriter fw;
+            PrintWriter pw;
+        
+            //crear el archivo
+            fw= new FileWriter("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PASueldo.txt", true);
+            //escribir el archivo
+            pw=new PrintWriter(fw);
+            //enviar datos al archivo
+            Cliente obj= new Cliente();
+            Empleado obj1 = new Empleado();
+            obj.setcodigo(txtCCliente.getText());
+            obj1.setcodigo(txtCEmpleado.getText());
+            obj.setMSolicitarA(Integer.parseInt(txtPrestamo.getText()));
+            obj.setNroCuotas(Integer.parseInt(txtCantidadaños.getText()));
+            
+            obj.setNumerotarjeta(Integer.parseInt(txtNTarjeta.getText()));
+            obj.setSueldocliente(Integer.parseInt(txtPrestamo.getText()));
+
+            
+            pw.println(
+                  obj.getCodigo()+ ";"
+                    +obj1.getcodigo()+ ";" 
+             + obj.getMSolicitarA()+ ";" 
+             + obj.getNroCuotas()+ ";"
+            + obj.getNumerotarjeta()+ ";"
+            + obj.getSueldocliente()+ ";"
+          
+                    
+            
+            );
+            
+            //liberar buffer
+            pw.close();
+            //enviar mensaje de exito
+            JOptionPane.showMessageDialog(null, "Empleado Registrado");
+            
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error Fichero: \n" + ex.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public frmPrestamoHipotecario() {
         initComponents();
         setLocationRelativeTo(null);
+        DesHabilitarTextos();
+        DesHabilitarBotones();
+       ColumnasTabla();
     }
 
     /**
@@ -39,7 +230,6 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         btnNuevo = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
         btnGrabar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtNTarjeta = new javax.swing.JTextField();
@@ -59,6 +249,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         cboTipo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPrestamoHipotecario = new javax.swing.JTable();
+        btnExportarExcel2007 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,12 +270,20 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         });
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnListar.setText("Listar");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         btnGrabar.setText("Grabar");
-
-        btnActualizar.setText("Actualizar");
 
         btnEliminar.setText("Eliminar");
 
@@ -100,7 +299,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
 
         jLabel3.setText("Direcciòn del inmueble:");
 
-        jLabel4.setText("Estasdo del bien");
+        jLabel4.setText("Estado del bien");
 
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -155,6 +354,13 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblPrestamoHipotecario);
 
+        btnExportarExcel2007.setText("Exportar Excel 2007");
+        btnExportarExcel2007.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarExcel2007ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,22 +402,21 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                                     .addComponent(txtNTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(160, 160, 160)
-                                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(148, 148, 148))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnExportarExcel2007))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(154, 154, 154))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -229,8 +434,8 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(111, 111, 111)
@@ -253,15 +458,14 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                                     .addComponent(txtPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(109, 109, 109)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnExportarExcel2007)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -385,6 +589,23 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCantidadañosKeyTyped
 
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
+        try {
+            Clases.clsExportarExcel obj = new Clases.clsExportarExcel();
+            obj.exportarExcel2010(tblPrestamoHipotecario);
+        } catch (IOException ex) {
+            Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExportarExcel2007ActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        llenarTabla();
+    }//GEN-LAST:event_btnListarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -421,9 +642,9 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnExportarExcel2007;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNuevo;

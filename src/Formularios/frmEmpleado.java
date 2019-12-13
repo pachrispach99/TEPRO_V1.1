@@ -30,7 +30,7 @@ public class frmEmpleado extends javax.swing.JFrame {
         btnNuevo.setEnabled(false);
         btnGrabar.setEnabled(true);
         btnCancelar.setEnabled(true);
-        btnActualizar.setEnabled(false);
+        
         btnEliminar.setEnabled(false);
         btnCerrar.setEnabled(false);
         
@@ -40,7 +40,7 @@ public class frmEmpleado extends javax.swing.JFrame {
         btnNuevo.setEnabled(true);
         btnGrabar.setEnabled(false);
         btnCancelar.setEnabled(false);
-        btnActualizar.setEnabled(false);
+        
         btnEliminar.setEnabled(true);
         btnCerrar.setEnabled(true);
     }
@@ -82,7 +82,7 @@ public class frmEmpleado extends javax.swing.JFrame {
      
 
      
-     //tabla
+     
      DefaultTableModel modelo = new DefaultTableModel();
     
     
@@ -126,7 +126,7 @@ public class frmEmpleado extends javax.swing.JFrame {
             PrintWriter pw;
         
             //crear el archivo
-            fw= new FileWriter("C:\\TEPRO_V1.1\\Ficheros\\Empleado.txt", true);
+            fw= new FileWriter("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\Empleado.txt", true);
             //escribir el archivo
             pw=new PrintWriter(fw);
             //enviar datos al archivo
@@ -162,7 +162,7 @@ public class frmEmpleado extends javax.swing.JFrame {
       
       private void llenarTabla(){
         try{
-            File archivo = new File("C:\\TEPRO_V1.1\\Ficheros\\Empleado.txt");
+            File archivo = new File("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\Empleado.txt");
             if (archivo.exists()){
                 FileReader fr = new FileReader(archivo);
                 BufferedReader br = new BufferedReader(fr);
@@ -217,7 +217,6 @@ public class frmEmpleado extends javax.swing.JFrame {
 
         btnGrabar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
@@ -260,8 +259,6 @@ public class frmEmpleado extends javax.swing.JFrame {
             }
         });
 
-        btnActualizar.setText("ACTUALIZAR");
-
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,6 +289,11 @@ public class frmEmpleado extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbEmpleado);
 
         btnPdf.setText("Exportar a PDF");
+        btnPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPdfActionPerformed(evt);
+            }
+        });
 
         btnExcel.setText("Exportar a Excel");
         btnExcel.addActionListener(new java.awt.event.ActionListener() {
@@ -451,7 +453,6 @@ public class frmEmpleado extends javax.swing.JFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGrabar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -476,6 +477,12 @@ public class frmEmpleado extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNuevo)
                             .addComponent(btnLimpiar))
@@ -485,24 +492,18 @@ public class frmEmpleado extends javax.swing.JFrame {
                         .addComponent(btnCancelar)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnActualizar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCerrar))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
+                                .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(btnEliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCerrar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(62, 62, 62)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(87, Short.MAX_VALUE))
         );
@@ -649,6 +650,10 @@ public class frmEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtSueldoKeyTyped
 
+    private void btnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfActionPerformed
+       
+    }//GEN-LAST:event_btnPdfActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -685,7 +690,6 @@ public class frmEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCerrar;
