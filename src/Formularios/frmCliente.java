@@ -641,7 +641,7 @@ public class frmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
-        // TODO add your handling code here:
+        
         try {
             
             clsExportarExcel obj = new clsExportarExcel();

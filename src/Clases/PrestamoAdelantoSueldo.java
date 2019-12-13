@@ -4,6 +4,11 @@ package Clases;
 public class PrestamoAdelantoSueldo {
     
     private Cliente obj= new Cliente();
+    private String CodigoCliente;
+    private String CodigoEmpleado;
+    private int nroCuotas;//estará en un radiobuton
+    private int sueldocliente;
+    
     
     //Adelanto de Sueldo////////////////////////////////////////////////////
     private String Cuenta;// Tiene una cuenta con el banco Sctiabank? Si / No
@@ -112,5 +117,39 @@ public class PrestamoAdelantoSueldo {
         return obj.getIngresoMe()-Comisionfija()+AdelantoSueldo();
         
     }
+
+    public String getCodigoCliente() {
+        return CodigoCliente;
+    }
+
+    public void setCodigoCliente(String CodigoCliente) {
+        this.CodigoCliente = CodigoCliente;
+    }
+
+    public String getCodigoEmpleado() {
+        return CodigoEmpleado;
+    }
+
+    public void setCodigoEmpleado(String CodigoEmpleado) {
+        this.CodigoEmpleado = CodigoEmpleado;
+    }
+
+    public int getNroCuotas() {
+        return nroCuotas;
+    }
+
+    public void setNroCuotas(int nroCuotas) {
+        this.nroCuotas = nroCuotas;
+    }
+
+    public int getSueldocliente() {
+        return sueldocliente;
+    }
+
+    public void setSueldocliente(int sueldocliente) {
+        this.sueldocliente = sueldocliente;
+    }
+    
+    
     
 }
