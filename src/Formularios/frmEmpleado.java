@@ -6,6 +6,7 @@
 package Formularios;
 
 import Clases.Empleado;
+import Clases.clsExportarExcel;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,6 +14,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -290,6 +293,11 @@ public class frmEmpleado extends javax.swing.JFrame {
         btnPdf.setText("Exportar a PDF");
 
         btnExcel.setText("Exportar a Excel");
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcelActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Registrando Empleado"));
 
@@ -526,6 +534,19 @@ public class frmEmpleado extends javax.swing.JFrame {
         HabilitarTextos();
         HabilitarBotones();
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
+      
+      try {
+          
+          clsExportarExcel obj = new clsExportarExcel();
+            obj.exportarExcel2010(tbEmpleado);
+        } catch (IOException ex) {
+            Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnExcelActionPerformed
 
     /**
      * @param args the command line arguments
