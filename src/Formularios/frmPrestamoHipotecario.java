@@ -16,6 +16,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -152,7 +154,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
             PrintWriter pw;
         
             //crear el archivo
-            fw= new FileWriter("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PASueldo.txt", true);
+            fw= new FileWriter("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PHipotecario.txt", true);
             //escribir el archivo
             pw=new PrintWriter(fw);
             //enviar datos al archivo
@@ -160,21 +162,21 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
             Empleado obj1 = new Empleado();
             obj.setcodigo(txtCCliente.getText());
             obj1.setcodigo(txtCEmpleado.getText());
-            obj.setMSolicitarA(Integer.parseInt(txtPrestamo.getText()));
-            obj.setNroCuotas(Integer.parseInt(txtCantidadaños.getText()));
-            
-            obj.setNumerotarjeta(Integer.parseInt(txtNTarjeta.getText()));
-            obj.setSueldocliente(Integer.parseInt(txtPrestamo.getText()));
-
-            
+//            obj.setMSolicitarA(Integer.parseInt(txtPrestamo.getText()));
+//            obj.setNroCuotas(Integer.parseInt(txtCantidadaños.getText()));
+//            
+//            obj.setNumerotarjeta(Integer.parseInt(txtNTarjeta.getText()));
+//            obj.setSueldocliente(Integer.parseInt(txtPrestamo.getText()));
+//
+//            
             pw.println(
                   obj.getCodigo()+ ";"
                     +obj1.getcodigo()+ ";" 
-             + obj.getMSolicitarA()+ ";" 
-             + obj.getNroCuotas()+ ";"
-            + obj.getNumerotarjeta()+ ";"
-            + obj.getSueldocliente()+ ";"
-          
+//             + obj.getMSolicitarA()+ ";" 
+//             + obj.getNroCuotas()+ ";"
+//            + obj.getNumerotarjeta()+ ";"
+//            + obj.getSueldocliente()+ ";"
+//          
                     
             
             );
@@ -284,10 +286,25 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         });
 
         btnGrabar.setText("Grabar");
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         txtNTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -590,7 +607,9 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadañosKeyTyped
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        
+        Limpiar();
+        HabilitarTextos();
+        HabilitarBotones();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
@@ -605,6 +624,47 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         llenarTabla();
     }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+        DesHabilitarTextos();
+        DesHabilitarBotones();
+        
+         Empleado obj = new Empleado();
+                
+
+        obj.setCodigo(txtCCliente.getText());
+        obj.setApellido(txtCEmpleado.getText());
+//        obj.setApellido(txtApellido.getText());
+//        obj.setDni(Integer.parseInt(txtDni.getText()));
+//        obj.setSexo1(rdFemenino.isSelected());
+//        obj.setSexo2(rdMasculino.isSelected());
+//        obj.setSueldo(Double.parseDouble(txtSueldo.getText()));
+
+        //agregar fila a la tabla
+        Object[] fila = new Object[6];
+        fila[0] = obj.getCodigo();
+        fila[1] = obj.getNombre();
+        fila[2] = obj.getApellido();
+        fila[3] = obj.getDni();
+        fila[4] = obj.Sexo();
+        fila[5] = obj.getSueldo();
+        modelo.addRow(fila);
+
+        Enviarfichero();
+        modelo.setRowCount(0);
+        llenarTabla();
+        Limpiar();
+    }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        DesHabilitarTextos();
+        DesHabilitarBotones();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        Eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
