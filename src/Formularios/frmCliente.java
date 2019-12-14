@@ -4,15 +4,145 @@ package Formularios;
 import Clases.Cliente;
 import Clases.clsExportarExcel;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 public class frmCliente extends javax.swing.JFrame {
+    
+     private void HabilitarBotones(){
+        btnNuevo.setEnabled(false);
+        btnGrabar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        
+        btnEliminar.setEnabled(false);
+        btnSalir.setEnabled(false);
+        btnLimpiar.setEnabled(true);
+        btnExportarExcel2007.setEnabled(true);
+        btnExportarExcel2010.setEnabled(true);
+    }
+    
+    private void DesHabilitarBotones(){
+        btnNuevo.setEnabled(true);
+        btnGrabar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        
+        btnEliminar.setEnabled(false);
+        btnBuscar.setEnabled(false);
+        btnSalir.setEnabled(true);
+        btnExportarExcel2007.setEnabled(false);
+        btnExportarExcel2010.setEnabled(false);
+    }
+    
+    private void HabilitarTextos(){
+          txtCodigo.setEnabled(true);
+       txtNombre.setEnabled(true);
+        txtAMaterno.setEnabled(true);
+        txtAPaterno.setEnabled(true);
+        txtCelular.setEnabled(true);
+       txtCodigo.setEnabled(true);
+       txtDireccion.setEnabled(true);
+       txtEdad.setEnabled(true);
+       txtEmail.setEnabled(true);
+       txtNacionalidad.setEnabled(true);
+       txtNombre.setEnabled(true);
+       txtProfesion.setEnabled(true);
+       txtSueldo.setEnabled(true);
+       txtTelefono.setEnabled(true);
+       txtTrabajo.setEnabled(true);
+       
+       
+    }
+    
+    private void DesHabilitarTextos(){
+          txtCodigo.setEnabled(false);
+       txtNombre.setEnabled(false);
+        txtAMaterno.setEnabled(false);
+        txtAPaterno.setEnabled(false);
+        txtCelular.setEnabled(false);
+       txtCodigo.setEnabled(false);
+       txtDireccion.setEnabled(false);
+       txtEdad.setEnabled(false);
+       txtEmail.setEnabled(false);
+       txtNacionalidad.setEnabled(false);
+       txtNombre.setEnabled(false);
+       txtProfesion.setEnabled(false);
+       txtSueldo.setEnabled(false);
+       txtTelefono.setEnabled(false);
+       txtTrabajo.setEnabled(false);
+       
+    }
+    private void Limpiar(){
+        
+         txtCodigo.setText(null);
+       txtNombre.setText(null);
+        txtAMaterno.setText(null);
+        txtAPaterno.setText(null);
+        txtCelular.setText(null);
+       txtCodigo.setText(null);
+       txtDireccion.setText(null);
+       txtEdad.setText(null);
+       txtEmail.setText(null);
+       txtNacionalidad.setText(null);
+       txtNombre.setText(null);
+       txtProfesion.setText(null);
+       txtSueldo.setText(null);
+       txtTelefono.setText(null);
+       txtTrabajo.setText(null);
+       rbtPAlquilada.setSelected(false);
+       rbtPFamiliar.setSelected(false);
+       rbtPPagada.setSelected(false);
+       rbtPPagandola.setSelected(false);
+       rbtPosgrado.setSelected(false);
+       rbtPrimaria.setSelected(false);
+       rbtSecundaria.setSelected(false);
+       rbtTecnica.setSelected(false);
+       rbtTecnica.setSelected(false);
+       rbtUniversitario.setSelected(false);
+       
+               
+        
+        txtCodigo.requestFocus();
+    }
+         DefaultTableModel modelo = new DefaultTableModel();
+
+    private void ColumnasTablaEmpleado(){
+         modelo.addColumn("CODIGO");
+        modelo.addColumn("NOMBRE");
+      modelo.addColumn("APELLIDO"); 
+        modelo.addColumn("DNI");
+       modelo.addColumn("SEXO");
+        modelo.addColumn("SUELDO");
+        
+       tblCliente.setModel(modelo);  
+       
+    }
+    private void Eliminar(){
+        int fila=tblCliente.getSelectedRow();
+        modelo.removeRow(fila);
+    }
+    private void Limpiartabla(){
+        int filas=modelo.getRowCount();
+        for(int i=0;i<filas;i++)
+        {
+            modelo.removeRow(0);
+        }
+    }
+    private void Validar(){
+        if(txtCodigo.equals(" "))
+        {
+            JOptionPane.showConfirmDialog(null, "debe ingresar dato");
+        }
+    }
     private void enviarFicheroCliente(){
         try{
             FileWriter fw;
@@ -71,10 +201,63 @@ public class frmCliente extends javax.swing.JFrame {
         }
         
     }
+    
+    private void llenarTabla(){
+        try{
+            File archivo = new File("C:\\Cliente.txt");
+            if (archivo.exists()){
+                FileReader fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;
+                
+                while((linea=br.readLine())!=null){
+                    StringTokenizer st = new StringTokenizer(linea, ";");
+                    String cod = st.nextToken().trim();
+                    String nom = st.nextToken().trim();
+                    String apeMa = st.nextToken().trim();
+                    String apePa = st.nextToken().trim();
+                    String edad=st.nextToken().trim();
+                    String Sexo=st.nextToken().trim();
+                    String Nac=st.nextToken().trim();
+                    String Direc=st.nextToken().trim();
+                    String Profe=st.nextToken().trim();
+                    String Telef=st.nextToken().trim();
+                    String Cel=st.nextToken().trim();
+                    String Estado=st.nextToken().trim();
+                    String Email=st.nextToken().trim();
+                    String TraActual=st.nextToken().trim();
+                    String IngresoMe=st.nextToken().trim();
+                    String Vivienda=st.nextToken().trim();
+                    String Insti=st.nextToken().trim();
+                    Object[] obj = new Object[]{
+                      cod, nom, apeMa, apePa,edad ,Sexo,Nac,Direc,Profe,Telef,
+                        Cel,Estado,Email,TraActual,IngresoMe,Vivienda,Insti
+                    };
+                    modelo.addRow(obj);
+                    
+                 }
+                 //liberar recursos
+                 br.close();
+                                               
+            }else{
+                JOptionPane.showMessageDialog(null, 
+                        "Ruta no valida del archivo");
+            }
+                                              
+        }catch(IOException ex){
+            JOptionPane.showMessageDialog(null, 
+                    "Error Leer Fichero: " + ex.getMessage());
+        }
+        
+    } 
             
    
     public frmCliente() {
         initComponents();
+         ColumnasTablaEmpleado();
+         DesHabilitarTextos();
+        DesHabilitarBotones();
+         llenarTabla();
     }
     
 
@@ -135,12 +318,13 @@ public class frmCliente extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCliente = new javax.swing.JTable();
-        btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnExportarExcel2007 = new javax.swing.JButton();
         btnExportarExcel2010 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -531,6 +715,11 @@ public class frmCliente extends javax.swing.JFrame {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         tblCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -542,11 +731,19 @@ public class frmCliente extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblCliente);
 
-        btnModificar.setText("Modifcar");
-
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnExportarExcel2007.setText("Exportar Excel 2007");
         btnExportarExcel2007.addActionListener(new java.awt.event.ActionListener() {
@@ -562,71 +759,91 @@ public class frmCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        btnLimpiar.setText("Limpiar Registro");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnExportarExcel2010)
-                            .addComponent(btnExportarExcel2007))))
-                .addGap(124, 124, 124))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExportarExcel2010))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(86, 86, 86)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnLimpiar)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                        .addComponent(btnGrabar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addComponent(btnExportarExcel2007))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(83, 83, 83)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(110, 110, 110))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNuevo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGrabar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNuevo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnModificar)
+                        .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSalir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpiar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExportarExcel2007)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExportarExcel2010)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addGap(21, 21, 21)
+                        .addComponent(btnExportarExcel2010)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnSalir))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -635,9 +852,51 @@ public class frmCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-     
-       enviarFicheroCliente();
-   
+     DesHabilitarTextos();
+     DesHabilitarBotones();
+      Cliente obj = new Cliente();
+            obj.setCodigo(txtCodigo.getText());
+            obj.setNombres(txtNombre.getText());
+            obj.setApellidomater(txtAMaterno.getText());
+            obj.setApellidopater(txtAPaterno.getText());
+            obj.setEdad(Integer.parseInt(txtEdad.getText()));
+            obj.setSexo(cboSexo.getSelectedItem().toString());
+            obj.setNacionalidad(txtNacionalidad.getText());
+            obj.setDireccion(txtDireccion.getText());
+            obj.setProfesion(txtProfesion.getText());
+            obj.setTelefono(Integer.parseInt(txtTelefono.getText()));
+            obj.setCelular(Integer.parseInt(txtCelular.getText()));
+            obj.setEstadoC(cboEstadoCivil.getSelectedItem().toString());
+            obj.setEmail(txtEmail.getText());
+            obj.setTrabajoActual(txtTrabajo.getText());
+            obj.setTipoPrestamos(cboTipoPrestamo.getSelectedItem().toString());
+            
+            
+            
+             Object[] fila = new Object[17];
+                    fila[0]=obj.getCodigo();
+                    fila[1]=obj.getNombres();
+                    fila[2]=obj.getApellidomater();
+                    fila[3]=obj.getApellidopater();
+                    fila[4]=obj.getEdad();
+                    fila[5]=obj.getSexo();
+                    fila[6]=obj.getNacionalidad();
+                    fila[7]=obj.getDireccion();
+                    fila[8]=obj.getProfesion();
+                    fila[9]=obj.getTelefono();
+                    fila[10]=obj.getCelular();
+                    fila[11]=obj.getEstadoC();
+                    fila[12]=obj.getEmail();
+                    fila[13]=obj.getTrabajoActual();
+                    fila[14]=obj.getIngresoMe();
+                    fila[15]=obj.SVivienda();
+                    fila[16]=obj.GIntitucion();
+            
+       
+        enviarFicheroCliente();
+        modelo.setRowCount(0);
+        llenarTabla();
+        Limpiar();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
@@ -842,6 +1101,36 @@ public class frmCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtEmailKeyTyped
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        DesHabilitarTextos();
+        DesHabilitarBotones();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        Eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        int opc=JOptionPane.showConfirmDialog(null, "quieres cerrar?");
+        if(opc==0)
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+         Limpiartabla();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        Limpiar();
+        HabilitarTextos();
+        HabilitarBotones();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
     
     
     
@@ -878,11 +1167,13 @@ public class frmCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnExportarExcel2007;
     private javax.swing.JButton btnExportarExcel2010;
     private javax.swing.JButton btnGrabar;
-    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -890,7 +1181,6 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboEstadoCivil;
     private javax.swing.JComboBox<String> cboSexo;
     private javax.swing.JComboBox<String> cboTipoPrestamo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

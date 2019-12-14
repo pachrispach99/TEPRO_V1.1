@@ -162,7 +162,7 @@ public class frmEmpleado extends javax.swing.JFrame {
       
       private void llenarTabla(){
         try{
-            File archivo = new File("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\Empleado.txt");
+            File archivo = new File("C:\\Empleado.txt");
             if (archivo.exists()){
                 FileReader fr = new FileReader(archivo);
                 BufferedReader br = new BufferedReader(fr);
