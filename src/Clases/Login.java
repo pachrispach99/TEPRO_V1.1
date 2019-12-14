@@ -1,14 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Clases;
 
-/**
- *
- * @author UPN
- */
 public class Login {
+    private String usuario;
+    private String Contraseña;
+
+    public Login() {
+    }
+
+    public Login(String usuario, String Contraseña) {
+        this.usuario = usuario;
+        this.Contraseña = Contraseña;
+    }
+
+    public String getContraseña() {
+        return Contraseña;
+    }
+
+    public void setContraseña(String Contraseña) {
+        this.Contraseña = Contraseña;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
     
 }
