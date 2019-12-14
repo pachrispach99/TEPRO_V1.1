@@ -180,7 +180,7 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
             //liberar buffer
             pw.close();
             //enviar mensaje de exito
-            JOptionPane.showMessageDialog(null, "Empleado Registrado");
+            JOptionPane.showMessageDialog(null, "Prestamo Registrado");
             
             
         }catch(Exception ex){
@@ -575,9 +575,9 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
         
          Empleado obj = new Empleado();
                 
-
-        obj.setCodigo(txtCCliente.getText());
-        obj.setApellido(txtCEmpleado.getText());
+//
+//        obj.setCodigo(txtCCliente.getText());
+//        obj.setApellido(txtCEmpleado.getText());
 //        obj.setApellido(txtApellido.getText());
 //        obj.setDni(Integer.parseInt(txtDni.getText()));
 //        obj.setSexo1(rdFemenino.isSelected());

@@ -167,6 +167,8 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
             PrestamoAdelantoSueldo obj1 = new PrestamoAdelantoSueldo();
             Cliente obj2 = new Cliente();
                     
+            
+            
             obj.setCcodigo(Integer.parseInt(txtCCliente.getText()));
             obj.setCemodigo(Integer.parseInt(txtCEmpleado.getText()));
             obj1.setNumerotarjeta(Integer.parseInt(txtNTarjeta.getText()));

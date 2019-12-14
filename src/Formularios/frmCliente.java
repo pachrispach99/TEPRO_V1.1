@@ -19,7 +19,7 @@ public class frmCliente extends javax.swing.JFrame {
             PrintWriter pw;
             
             //crear el archivo
-            fw = new FileWriter("C:\\TEPRO_V1.1\\Ficheros\\RegistroCliente.txt", true);
+            fw = new FileWriter("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\Cliente.txt", true);
             //escribir el archivo
             pw = new PrintWriter(fw);
             //enviar datos al archivo
@@ -195,7 +195,7 @@ public class frmCliente extends javax.swing.JFrame {
 
         jLabel5.setText("Edad");
 
-        cboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino", "Pacheca(o)" }));
+        cboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
 
         jLabel6.setText("Sexo ");
 
@@ -244,7 +244,7 @@ public class frmCliente extends javax.swing.JFrame {
 
         jLabel12.setText("Celular");
 
-        cboEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Casado", "Soltero", "Viudo ", "Divorciado" }));
+        cboEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Casado", "Soltero", "Viudo", "Divorciado" }));
 
         jLabel13.setText("Estado Civil");
 
@@ -277,7 +277,7 @@ public class frmCliente extends javax.swing.JFrame {
 
         jLabel17.setText("Tipo de Prestamo");
 
-        cboTipoPrestamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hipotecario", " Libre Disponibilidad", "Adelanto de Sueldo" }));
+        cboTipoPrestamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hipotecario", "Libre Disponibilidad", "Adelanto de Sueldo" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

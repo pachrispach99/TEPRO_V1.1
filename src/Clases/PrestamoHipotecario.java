@@ -10,6 +10,54 @@ public class PrestamoHipotecario {
     private int MSolicitarPh;//Hasta 50000; 6 y 60 meses de plazo de pago; 60 dias para pagar tu primera cuota
     private int cuentaAhorrosph;//mostrará las opciones
     private int IngresarCuentaph;//ingresa tu ceunta de ahorros;
+    private int valor;
+    private String tipo;
+    private String estado;
+    private int ccodigo;
+    private int cemodigo;
+    private int años;
+
+    public int getCemodigo() {
+        return cemodigo;
+    }
+
+    public void setCemodigo(int cemodigo) {
+        this.cemodigo = cemodigo;
+    }
+
+    public int getAños() {
+        return años;
+    }
+
+    public int getCcodigo() {
+        return ccodigo;
+    }
+
+    public void setCcodigo(int ccodigo) {
+        this.ccodigo = ccodigo;
+    }
+
+    public void setAños(int años) {
+        this.años = años;
+    }
+    
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public PrestamoHipotecario(int nroCuotasph, int MSolicitarPh, int cuentaAhorrosph, int IngresarCuentaph) {
         this.nroCuotasph = nroCuotasph;
@@ -59,6 +107,14 @@ public class PrestamoHipotecario {
 
     public void setIngresarCuentaph(int IngresarCuentaph) {
         this.IngresarCuentaph = IngresarCuentaph;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
     }
     
     
