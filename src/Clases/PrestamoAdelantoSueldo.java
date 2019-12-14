@@ -14,7 +14,7 @@ public class PrestamoAdelantoSueldo {
     private String Cuenta;// Tiene una cuenta con el banco Sctiabank? Si / No
     private int Nabonos;// Haber recibido mas de 3 abonos en tu cuenta;    
     //Sueldo del cliente , ya esta en la clase cliente.        
-    private int Numerotarjeta;
+    private  int  Numerotarjeta;
     private int MSolicitarA;//Entre 100 a 2.500(El maximo es 30% del sueldo del cliente)Crear restriccion;
 
     public PrestamoAdelantoSueldo() {

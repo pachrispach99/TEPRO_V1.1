@@ -13,6 +13,9 @@ public class PrestamoPersonal {
     private int MSolicitarP;//Hasta 50000; 6 y 60 meses de plazo de pago; 60 dias para pagar tu primera cuota   
     private int IngresarCuenta;//ingresa tu numero de tarjeta;
     private double sueldo;
+    private int Ntarjeta;
+
+  
 
     public PrestamoPersonal() {
     }
@@ -36,6 +39,16 @@ public class PrestamoPersonal {
     
     
     //Get and Set
+
+    public int getNtarjeta() {
+        return Ntarjeta;
+    }
+
+    public void setNtarjeta(int Ntarjeta) {
+        this.Ntarjeta = Ntarjeta;
+    }
+    
+    
 
     public Cliente getObj() {
         return obj;

@@ -10,7 +10,7 @@ public class PrestamoLibreDispo {
     private int MsolicitarLD;
     private int cuentaAhorrosLD;//mostrará las opciones
     private int IngresarCuentaLD;//ingresa tu ceunta de ahorros;
-
+private int sueldo;
     public PrestamoLibreDispo() {
     }
 
@@ -20,7 +20,8 @@ public class PrestamoLibreDispo {
         this.cuentaAhorrosLD = cuentaAhorrosLD;
         this.IngresarCuentaLD = IngresarCuentaLD;
     }
-
+    
+    
     public Cliente getObj() {
         return obj;
     }
@@ -59,6 +60,14 @@ public class PrestamoLibreDispo {
 
     public void setIngresarCuentaLD(int IngresarCuentaLD) {
         this.IngresarCuentaLD = IngresarCuentaLD;
+    }
+
+    public int getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(int sueldo) {
+        this.sueldo = sueldo;
     }
     
     

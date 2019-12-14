@@ -33,20 +33,14 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void HabilitarBotones(){
         btnNuevo.setEnabled(false);
         btnGrabar.setEnabled(true);
-        btnCancelar.setEnabled(true);
-        
-        btnEliminar.setEnabled(false);
-        
-        
+        btnCancelar.setEnabled(true);        
+        btnEliminar.setEnabled(false);    
     }
-    
     private void DesHabilitarBotones(){
         btnNuevo.setEnabled(true);
         btnGrabar.setEnabled(false);
-        btnCancelar.setEnabled(false);
-      
-        btnEliminar.setEnabled(true);
-        
+        btnCancelar.setEnabled(false);   
+        btnEliminar.setEnabled(true);     
     }
     
     private void HabilitarTextos(){
@@ -197,12 +191,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                     +obj.getValor()+";"
                     +obj.getEstado()+";"
                     +obj.getMSolicitarPh()+";"
-                    +obj.getAños()+";"
-                          
-//             
-//          
-                    
-            
+                    +obj.getAños()+";" 
             );
             
             //liberar buffer
@@ -275,6 +264,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         tblPrestamoHipotecario = new javax.swing.JTable();
         btnExportarExcel2007 = new javax.swing.JButton();
         cboTipo = new javax.swing.JComboBox<>();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -397,6 +387,13 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
 
         cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comprar casa", "comprar terreno", "remodelar casa" }));
 
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -444,7 +441,8 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnExportarExcel2007))
+                                    .addComponent(btnExportarExcel2007)
+                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -502,7 +500,9 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnExportarExcel2007)))))
+                                    .addComponent(btnExportarExcel2007))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLimpiar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -565,7 +565,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void txtNTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNTarjetaKeyTyped
         char c = evt.getKeyChar();
         
-        if(txtNTarjeta.getText().length()>= 13 ){
+        if(txtNTarjeta.getText().length()>= 10 ){
             evt.consume();
             JOptionPane.showMessageDialog(null, "Limite de Caracteres");
             Toolkit.getDefaultToolkit().beep();
@@ -704,6 +704,10 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         Eliminar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiartabla();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -744,6 +748,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnExportarExcel2007;
     private javax.swing.JButton btnGrabar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.ButtonGroup buttonGroup1;
