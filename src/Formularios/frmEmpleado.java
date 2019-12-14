@@ -8,16 +8,19 @@ package Formularios;
 import Clases.Empleado;
 import Clases.clsExportarExcel;
 import java.awt.Toolkit;
+import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.MessageFormat;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -651,7 +654,13 @@ public class frmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSueldoKeyTyped
 
     private void btnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfActionPerformed
-       
+       try {   
+            MessageFormat headerFormat = new MessageFormat("REGISTRO CLIENTES");
+            MessageFormat footerFormat =new MessageFormat("");
+            tbEmpleado.print(JTable.PrintMode.FIT_WIDTH, headerFormat,footerFormat);
+        } catch (PrinterException ex){
+        Logger.getLogger(frmEmpleado.class.getName()).log(Level.SEVERE,null,ex);
+        }
     }//GEN-LAST:event_btnPdfActionPerformed
 
     /**

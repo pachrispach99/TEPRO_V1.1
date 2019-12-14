@@ -9,12 +9,14 @@ import Clases.Empleado;
 import Clases.PrestamoAdelantoSueldo;
 import Clases.clsExportarExcel;
 import java.awt.Toolkit;
+import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.MessageFormat;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -226,6 +228,7 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         btnExportarExcel2007 = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        btnExportarPdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -339,6 +342,13 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
             }
         });
 
+        btnExportarPdf.setText("Exportar a PDF");
+        btnExportarPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarPdfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -385,7 +395,9 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
-                        .addComponent(btnExportarExcel2007))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnExportarExcel2007, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnExportarPdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -442,6 +454,8 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
                         .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnExportarExcel2007)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnExportarPdf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
@@ -600,6 +614,17 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
         llenarTabla();
     }//GEN-LAST:event_btnListarActionPerformed
 
+    private void btnExportarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPdfActionPerformed
+        // TODO add your handling code here:
+        try {   
+            MessageFormat headerFormat = new MessageFormat("pRESTAMOS ADELANTO SUELDO");
+            MessageFormat footerFormat =new MessageFormat("");
+            tblPrestamoAdelantoS.print(JTable.PrintMode.FIT_WIDTH, headerFormat,footerFormat);
+        } catch (PrinterException ex){
+        Logger.getLogger(frmPrestamoAdelantoSuel.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }//GEN-LAST:event_btnExportarPdfActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -639,6 +664,7 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnExportarExcel2007;
+    private javax.swing.JButton btnExportarPdf;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnListar;

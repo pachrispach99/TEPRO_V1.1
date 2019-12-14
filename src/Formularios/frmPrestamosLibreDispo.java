@@ -10,16 +10,19 @@ import Clases.Empleado;
 import Clases.PrestamoLibreDispo;
 
 import java.awt.Toolkit;
+import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.MessageFormat;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -80,7 +83,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
         txtCodigo.requestFocus();
     }
     private void Eliminar(){
-        int fila=jTable3.getSelectedRow();
+        int fila=tblPrestamoLibre.getSelectedRow();
         modelo.removeRow(fila);
     }
     private void Limpiartabla(){
@@ -97,7 +100,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
         modelo.addColumn("Sueldo");
         modelo.addColumn("Prestamo");
         
-        jTable3.setModel(modelo);                        
+        tblPrestamoLibre.setModel(modelo);                        
     } 
     
      private void llenarTabla(){
@@ -222,7 +225,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtPrestamo = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblPrestamoLibre = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
         btnExportarExcel2007 = new javax.swing.JButton();
@@ -230,6 +233,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -301,7 +305,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblPrestamoLibre.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -312,7 +316,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tblPrestamoLibre);
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -363,6 +367,13 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Exportar a PDF");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -403,12 +414,14 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
                                     .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(40, 40, 40)
-                                .addComponent(btnExportarExcel2007))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnExportarExcel2007, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,6 +432,8 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnExportarExcel2007)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -428,7 +443,6 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnLimpiar)
                             .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -550,7 +564,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
     private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
         try {
             Clases.clsExportarExcel obj = new Clases.clsExportarExcel();
-            obj.exportarExcel2010(jTable3);
+            obj.exportarExcel2010(tblPrestamoLibre);
         } catch (IOException ex) {
             Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -590,6 +604,17 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         Limpiartabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {   
+            MessageFormat headerFormat = new MessageFormat("REGISTRO CLIENTES");
+            MessageFormat footerFormat =new MessageFormat("");
+            tblPrestamoLibre.print(JTable.PrintMode.FIT_WIDTH, headerFormat,footerFormat);
+        } catch (PrinterException ex){
+        Logger.getLogger(frmPrestamosLibreDispo.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 /**/
 /*   */
     /**
@@ -636,6 +661,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -646,7 +672,7 @@ public class frmPrestamosLibreDispo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JTable tblPrestamoLibre;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEmpleado;
     private javax.swing.JTextField txtNcuotasP;

@@ -73,7 +73,10 @@
                                   <Component id="btnEliminar" min="-2" pref="116" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="btnExportarExcel2007" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnExportarExcel2007" max="32767" attributes="0"/>
+                                  <Component id="btnExportarPDF" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <Component id="btnListar" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                           <Component id="btnLimpiar" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
@@ -123,7 +126,10 @@
                           <Group type="102" attributes="0">
                               <Component id="btnGrabar" min="-2" pref="35" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnEliminar" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnEliminar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="btnExportarPDF" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -285,6 +291,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnExportarPDF">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Exportar a PDF"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportarPDFActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -4,16 +4,19 @@ package Formularios;
 import Clases.Cliente;
 import Clases.clsExportarExcel;
 import java.awt.Toolkit;
+import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.MessageFormat;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -27,7 +30,7 @@ public class frmCliente extends javax.swing.JFrame {
         btnEliminar.setEnabled(false);
         btnSalir.setEnabled(false);
         btnLimpiar.setEnabled(true);
-        btnExportarExcel2007.setEnabled(true);
+        btnExportarPdf.setEnabled(true);
         btnExportarExcel2010.setEnabled(true);
     }
     
@@ -39,7 +42,7 @@ public class frmCliente extends javax.swing.JFrame {
         btnEliminar.setEnabled(false);
         btnBuscar.setEnabled(false);
         btnSalir.setEnabled(true);
-        btnExportarExcel2007.setEnabled(false);
+        btnExportarPdf.setEnabled(false);
         btnExportarExcel2010.setEnabled(false);
     }
     
@@ -149,7 +152,7 @@ public class frmCliente extends javax.swing.JFrame {
             PrintWriter pw;
             
             //crear el archivo
-            fw = new FileWriter("C:\\Cliente.txt", true);
+            fw = new FileWriter("Cliente.txt", true);
             //escribir el archivo
             pw = new PrintWriter(fw);
             //enviar datos al archivo
@@ -204,7 +207,7 @@ public class frmCliente extends javax.swing.JFrame {
     
     private void llenarTabla(){
         try{
-            File archivo = new File("C:\\Cliente.txt");
+            File archivo = new File("Cliente.txt");
             if (archivo.exists()){
                 FileReader fr = new FileReader(archivo);
                 BufferedReader br = new BufferedReader(fr);
@@ -320,7 +323,7 @@ public class frmCliente extends javax.swing.JFrame {
         tblCliente = new javax.swing.JTable();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
-        btnExportarExcel2007 = new javax.swing.JButton();
+        btnExportarPdf = new javax.swing.JButton();
         btnExportarExcel2010 = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -745,10 +748,10 @@ public class frmCliente extends javax.swing.JFrame {
             }
         });
 
-        btnExportarExcel2007.setText("Exportar Excel 2007");
-        btnExportarExcel2007.addActionListener(new java.awt.event.ActionListener() {
+        btnExportarPdf.setText("Exportar a PDF");
+        btnExportarPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportarExcel2007ActionPerformed(evt);
+                btnExportarPdfActionPerformed(evt);
             }
         });
 
@@ -791,7 +794,7 @@ public class frmCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 29, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -807,11 +810,11 @@ public class frmCliente extends javax.swing.JFrame {
                                         .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(74, 74, 74)
-                                .addComponent(btnExportarExcel2007))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(83, 83, 83)
-                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addComponent(btnExportarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(110, 110, 110))
         );
         layout.setVerticalGroup(
@@ -832,7 +835,7 @@ public class frmCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpiar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExportarExcel2007)
+                        .addComponent(btnExportarPdf)
                         .addGap(21, 21, 21)
                         .addComponent(btnExportarExcel2010)
                         .addGap(47, 47, 47)
@@ -899,16 +902,16 @@ public class frmCliente extends javax.swing.JFrame {
         Limpiar();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
-    private void btnExportarExcel2007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2007ActionPerformed
-        
-        try {
-            
-            clsExportarExcel obj = new clsExportarExcel();
-            obj.exportarExcel(tblCliente);
-        } catch (IOException ex) {
-            Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE, null, ex);
+    private void btnExportarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPdfActionPerformed
+        try {   
+            MessageFormat headerFormat = new MessageFormat("REGISTRO CLIENTES");
+            MessageFormat footerFormat =new MessageFormat("");
+            tblCliente.print(JTable.PrintMode.FIT_WIDTH, headerFormat,footerFormat);
+        } catch (PrinterException ex){
+        Logger.getLogger(frmCliente.class.getName()).log(Level.SEVERE,null,ex);
         }
-    }//GEN-LAST:event_btnExportarExcel2007ActionPerformed
+        
+    }//GEN-LAST:event_btnExportarPdfActionPerformed
 
     private void btnExportarExcel2010ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcel2010ActionPerformed
         // TODO add your handling code here:
@@ -1170,8 +1173,8 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnExportarExcel2007;
     private javax.swing.JButton btnExportarExcel2010;
+    private javax.swing.JButton btnExportarPdf;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnNuevo;

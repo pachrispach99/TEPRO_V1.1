@@ -72,27 +72,21 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="76" max="32767" attributes="0"/>
+                      <EmptySpace pref="71" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnNuevo" min="-2" pref="142" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnCancelar" min="-2" pref="142" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="btnGrabar" min="-2" pref="142" max="-2" attributes="0"/>
-                                  <Component id="btnExportarExcel2007" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnLimpiar" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnListar" min="-2" pref="142" max="-2" attributes="0"/>
-                                  <Component id="btnEliminar" min="-2" pref="142" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="btnNuevo" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Component id="btnGrabar" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Component id="btnLimpiar" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="154" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnListar" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Component id="btnEliminar" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Component id="btnExportarExcel2007" max="32767" attributes="0"/>
+                          <Component id="btnCancelar" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Component id="btnExportarPDF" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -123,9 +117,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnNuevo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="btnCancelar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnNuevo" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnCancelar" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -160,12 +154,13 @@
                                   <Component id="btnEliminar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnListar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="btnExportarExcel2007" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="btnListar" min="-2" pref="35" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="btnExportarExcel2007" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnExportarPDF" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -387,6 +382,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnExportarPDF">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Exportar a PDF"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportarPDFActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
