@@ -8,6 +8,7 @@ package Formularios;
 import Clases.Cliente;
 import Clases.Empleado;
 import Clases.PrestamoAdelantoSueldo;
+import Clases.PrestamoHipotecario;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
@@ -117,14 +118,18 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                 while((linea=br.readLine())!=null){
                     StringTokenizer st = new StringTokenizer(linea, ";");
                     String cod = st.nextToken().trim();
-                    String nom = st.nextToken().trim();
-                    String ape = st.nextToken().trim();
-                    String dni = st.nextToken().trim();
-                    String sex=st.nextToken().trim();
-                     String sue=st.nextToken().trim();
+                    String cod1 = st.nextToken().trim();
+                    
+                    String tarjeta = st.nextToken().trim();
+                    String dir = st.nextToken().trim();
+                    String tipo = st.nextToken().trim();
+                    String valor =st.nextToken().trim();
+                     String est=st.nextToken().trim();
+                      String pres=st.nextToken().trim();
+                       String an=st.nextToken().trim();
                     
                     Object[] obj = new Object[]{
-                      cod, nom, ape, dni,sex ,sue
+                      cod,cod1, tarjeta, dir, tipo, valor , est, pres, an
                     };
                     modelo.addRow(obj);
                     
@@ -158,10 +163,20 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
             //escribir el archivo
             pw=new PrintWriter(fw);
             //enviar datos al archivo
-            Cliente obj= new Cliente();
-            Empleado obj1 = new Empleado();
-            obj.setcodigo(txtCCliente.getText());
-            obj1.setcodigo(txtCEmpleado.getText());
+            PrestamoHipotecario obj = new PrestamoHipotecario();
+            PrestamoAdelantoSueldo obj1 = new PrestamoAdelantoSueldo();
+            Cliente obj2 = new Cliente();
+                    
+            obj.setCcodigo(Integer.parseInt(txtCCliente.getText()));
+            obj.setCemodigo(Integer.parseInt(txtCEmpleado.getText()));
+            obj1.setNumerotarjeta(Integer.parseInt(txtNTarjeta.getText()));
+            obj2.setDireccion(txtDireccion.getText());
+            obj.setTipo(cboTipo.getSelectedItem().toString());
+            obj.setValor(Integer.parseInt(txtValor.getText()));
+            obj.setEstado(cboEstado.getSelectedItem().toString());
+            obj.setMSolicitarPh(Integer.parseInt(txtPrestamo.getText()));
+            obj.setAños(Integer.parseInt(txtCantidadaños.getText()));
+            
 //            obj.setMSolicitarA(Integer.parseInt(txtPrestamo.getText()));
 //            obj.setNroCuotas(Integer.parseInt(txtCantidadaños.getText()));
 //            
@@ -170,12 +185,19 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
 //
 //            
             pw.println(
-                  obj.getCodigo()+ ";"
-                    +obj1.getcodigo()+ ";" 
-//             + obj.getMSolicitarA()+ ";" 
-//             + obj.getNroCuotas()+ ";"
-//            + obj.getNumerotarjeta()+ ";"
-//            + obj.getSueldocliente()+ ";"
+                  obj.getCcodigo()+ ";"+
+                    
+                          
+                    +obj.getCemodigo()+ ";" 
+                    +obj1.getNumerotarjeta()+";"
+                    +obj2.getDireccion()+";"
+                    +obj.getTipo()+";"
+                    +obj.getValor()+";"
+                    +obj.getEstado()+";"
+                    +obj.getMSolicitarPh()+";"
+                    +obj.getAños()+";"
+                          
+//             
 //          
                     
             
@@ -184,7 +206,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
             //liberar buffer
             pw.close();
             //enviar mensaje de exito
-            JOptionPane.showMessageDialog(null, "Empleado Registrado");
+            JOptionPane.showMessageDialog(null, "Prestamo Registrado");
             
             
         }catch(Exception ex){
@@ -241,17 +263,16 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         txtDireccion = new javax.swing.JTextField();
         txtValor = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         txtPrestamo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtCantidadaños = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        cboTipo = new javax.swing.JComboBox<>();
+        cboEstado = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPrestamoHipotecario = new javax.swing.JTable();
         btnExportarExcel2007 = new javax.swing.JButton();
+        cboTipo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -332,12 +353,6 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
 
         jLabel6.setText("Valor del bien");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Nuevo");
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Usado");
-
         jLabel7.setText("Cantidad de años a devolver:");
 
         txtPrestamo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -356,7 +371,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
 
         jLabel9.setText("Tipo de hipoteca:");
 
-        cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comprar casa", "comprar terreno", "remodelar casa" }));
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nuevo", "Usado" }));
 
         tblPrestamoHipotecario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -378,6 +393,8 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
             }
         });
 
+        cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comprar casa", "comprar terreno", "remodelar casa" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -387,29 +404,18 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
-                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
-                                .addComponent(jRadioButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
                                 .addComponent(txtPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(37, 37, 37)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
@@ -417,7 +423,15 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                                             .addComponent(txtCEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtCCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(txtNTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(53, 53, 53)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -435,9 +449,14 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(154, 154, 154))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCantidadaños, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(235, 235, 235))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCantidadaños, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -455,11 +474,11 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(111, 111, 111)
+                                .addGap(119, 119, 119)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
@@ -468,9 +487,8 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jRadioButton1)
-                                            .addComponent(jRadioButton2))))
-                                .addGap(18, 18, 18)
+                                            .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(19, 19, 19)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -518,6 +536,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         if(txtCCliente.getText().length()>= 6 ){
             JOptionPane.showMessageDialog(null, "Limite de Caracteres");
             evt.consume();
+            Toolkit.getDefaultToolkit().beep();
            }
          if(c<'0' || c>'9'){
             JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
@@ -529,9 +548,10 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void txtCEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCEmpleadoKeyTyped
         char c = evt.getKeyChar();
         
-        if(txtCCliente.getText().length()>= 6 ){
+        if(txtCEmpleado.getText().length()>= 6 ){
             JOptionPane.showMessageDialog(null, "Limite de Caracteres");
             evt.consume();
+            Toolkit.getDefaultToolkit().beep();
            }
          if(c<'0' || c>'9'){
             JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
@@ -543,9 +563,11 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void txtNTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNTarjetaKeyTyped
         char c = evt.getKeyChar();
         
-        if(txtCCliente.getText().length()>= 13 ){
-            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+        if(txtNTarjeta.getText().length()>= 13 ){
             evt.consume();
+            JOptionPane.showMessageDialog(null, "Limite de Caracteres");
+            Toolkit.getDefaultToolkit().beep();
+            
            }
          if(c<'0' || c>'9'){
             JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
@@ -557,9 +579,10 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
         char c = evt.getKeyChar();
         
-        if(txtCCliente.getText().length()>= 35 ){
+        if(txtDireccion.getText().length()>= 35 ){
             JOptionPane.showMessageDialog(null, "Limite de Caracteres");
             evt.consume();
+            Toolkit.getDefaultToolkit().beep();
            }
         
     }//GEN-LAST:event_txtDireccionKeyTyped
@@ -567,9 +590,10 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
         char c = evt.getKeyChar();
         
-        if(txtCCliente.getText().length()>= 7 ){
+        if(txtValor.getText().length()>= 7 ){
             JOptionPane.showMessageDialog(null, "Limite de Caracteres");
             evt.consume();
+            Toolkit.getDefaultToolkit().beep();
            }
          if(c<'0' || c>'9'){
             JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
@@ -581,9 +605,10 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void txtPrestamoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrestamoKeyTyped
         char c = evt.getKeyChar();
         
-        if(txtCCliente.getText().length()>= 6 ){
+        if(txtPrestamo.getText().length()>= 6 ){
             JOptionPane.showMessageDialog(null, "Limite de Caracteres");
             evt.consume();
+            Toolkit.getDefaultToolkit().beep();
            }
          if(c<'0' || c>'9'){
             JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
@@ -595,9 +620,10 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private void txtCantidadañosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadañosKeyTyped
         char c = evt.getKeyChar();
         
-        if(txtCCliente.getText().length()>= 2 ){
+        if(txtCantidadaños.getText().length()>= 2 ){
             JOptionPane.showMessageDialog(null, "Limite de Caracteres");
             evt.consume();
+            Toolkit.getDefaultToolkit().beep();
            }
          if(c<'0' || c>'9'){
             JOptionPane.showMessageDialog(null, "No se Aceptan Letras");
@@ -629,25 +655,35 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
         DesHabilitarTextos();
         DesHabilitarBotones();
         
-         Empleado obj = new Empleado();
+        PrestamoHipotecario obj4 = new PrestamoHipotecario();
+           
                 
-
-        obj.setCodigo(txtCCliente.getText());
-        obj.setApellido(txtCEmpleado.getText());
-//        obj.setApellido(txtApellido.getText());
-//        obj.setDni(Integer.parseInt(txtDni.getText()));
-//        obj.setSexo1(rdFemenino.isSelected());
-//        obj.setSexo2(rdMasculino.isSelected());
-//        obj.setSueldo(Double.parseDouble(txtSueldo.getText()));
-
-        //agregar fila a la tabla
-        Object[] fila = new Object[6];
-        fila[0] = obj.getCodigo();
-        fila[1] = obj.getNombre();
-        fila[2] = obj.getApellido();
-        fila[3] = obj.getDni();
-        fila[4] = obj.Sexo();
-        fila[5] = obj.getSueldo();
+            PrestamoHipotecario obj = new PrestamoHipotecario();
+            PrestamoAdelantoSueldo obj1 = new PrestamoAdelantoSueldo();
+            Cliente obj2 = new Cliente();
+            
+//            obj.setCcodigo(Integer.parseInt(txtCCliente.getText()));
+//            obj.setCemodigo(Integer.parseInt(txtCEmpleado.getText()));
+//            obj1.setNumerotarjeta(Integer.parseInt(txtNTarjeta.getText()));
+//            obj2.setDireccion(txtDireccion.getText());
+//            obj.setTipo(cboTipo.getSelectedItem().toString());
+//            obj.setValor(Integer.parseInt(txtValor.getText()));
+//            obj.setEstado(cboEstado.getSelectedItem().toString());
+//            obj.setMSolicitarPh(Integer.parseInt(txtPrestamo.getText()));
+//            obj.setAños(Integer.parseInt(txtCantidadaños.getText()));
+            
+          
+        
+        Object[] fila = new Object[9];
+        fila[0] = obj.getCcodigo();
+        fila[1] = obj.getCemodigo();
+        fila[2] = obj1.getNumerotarjeta();
+        fila[3] = obj2.getDireccion();
+        fila[4] = obj.getTipo();
+        fila[5] = obj.getValor();
+        fila[6] =obj.getEstado() ;
+        fila[7] = obj.getMSolicitarPh();
+        fila[8] =obj.getAños() ;
         modelo.addRow(fila);
 
         Enviarfichero();
@@ -709,6 +745,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cboEstado;
     private javax.swing.JComboBox<String> cboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -719,8 +756,6 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPrestamoHipotecario;
     private javax.swing.JTextField txtCCliente;
