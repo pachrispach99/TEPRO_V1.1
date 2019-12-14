@@ -103,7 +103,7 @@ public class frmPrestamoHipotecario extends javax.swing.JFrame {
     
     private void llenarTabla(){
         try{
-            File archivo = new File("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PHipotecario.txt");
+            File archivo = new File("C:\\PHipotecario.txt");
             if (archivo.exists()){
                 FileReader fr = new FileReader(archivo);
                 BufferedReader br = new BufferedReader(fr);

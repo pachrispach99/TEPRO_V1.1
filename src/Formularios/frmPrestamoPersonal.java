@@ -144,7 +144,7 @@ public class frmPrestamoPersonal extends javax.swing.JFrame {
             PrintWriter pw;
         
             //crear el archivo
-            fw= new FileWriter("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PPersonal.txt", true);
+            fw= new FileWriter("C:\\PPersonal.txt", true);
             //escribir el archivo
             pw=new PrintWriter(fw);
             //enviar datos al archivo

@@ -103,7 +103,7 @@ public class frmPrestamoAdelantoSuel extends javax.swing.JFrame {
     
     private void llenarTabla(){
         try{
-            File archivo = new File("C:\\Users\\User\\Desktop\\repositorio\\TEPRO_V1.1\\Ficheros\\PASueldo.txt");
+            File archivo = new File("C:\\PASueldo.txt");
             if (archivo.exists()){
                 FileReader fr = new FileReader(archivo);
                 BufferedReader br = new BufferedReader(fr);
